@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:map_location_picker/map_location_picker.dart';
+import 'package:maplocationpickerexample/permissions.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() {
   runApp(
@@ -27,6 +29,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    Permissions().checkPermission(Permission.location, context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('location picker'),
@@ -57,18 +60,11 @@ class _MyAppState extends State<MyApp> {
                   return AlertDialog(
                     title: const Text('Example'),
                     content: PlacesAutocomplete(
-                      apiKey: "",
+                      apiKey: "AIzaSyAMhTfdnMECt8PaeFTzqdeysKVPeWrgMdA",
                       searchHintText: "Search for a place",
                       mounted: mounted,
                       hideBackButton: true,
                       initialValue: initialValue,
-                      onSuggestionSelected: (value) {
-                        setState(() {
-                          autocompletePlace =
-                              value.structuredFormatting?.mainText ?? "";
-                          initialValue = value;
-                        });
-                      },
                       onGetDetailsByPlaceId: (value) {
                         setState(() {
                           address = value?.result.formattedAddress ?? "";
